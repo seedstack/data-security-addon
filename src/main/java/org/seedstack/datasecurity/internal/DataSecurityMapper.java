@@ -10,11 +10,10 @@ package org.seedstack.datasecurity.internal;
 import com.google.inject.Injector;
 import org.kametic.universalvisitor.api.Mapper;
 import org.kametic.universalvisitor.api.Node;
+import org.seedstack.datasecurity.DataObfuscationHandler;
+import org.seedstack.datasecurity.spi.DataSecurityHandler;
 import org.seedstack.seed.SeedException;
-import org.seedstack.seed.security.internal.SecurityErrorCode;
 import org.seedstack.seed.security.internal.securityexpr.SecurityExpressionInterpreter;
-import org.seedstack.seed.security.spi.data.DataObfuscationHandler;
-import org.seedstack.seed.security.spi.data.DataSecurityHandler;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -22,10 +21,12 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 class DataSecurityMapper implements Mapper<Void> {
     private Map<Object, DataSecurityHandler<?>> securityHandlers;
     private DataSecurityHandler dataSecurityHandler;
-    private Object securityObject;
+    private Object securedObject;
     private SecurityExpressionInterpreter securityExpressionInterpreter;
     private Injector injector;
     private static Map<Class<?>, Object> nulls = new HashMap<>();
@@ -40,49 +41,27 @@ class DataSecurityMapper implements Mapper<Void> {
     }
 
     @Override
-    public boolean handle(AnnotatedElement candidate) {
-        return handleAnnotations(candidate) || handleOther(candidate);
-    }
-
     @SuppressWarnings("unchecked")
-    private boolean handleAnnotations(AnnotatedElement candidate) {
+    public boolean handle(AnnotatedElement candidate) {
         for (Annotation anno : candidate.getAnnotations()) {
             dataSecurityHandler = securityHandlers.get(anno.annotationType());
             // If there is no DataSecurityAnnotationHandler for this annotation we continue in the loop
             // if there is one and the interpretation of the associated security expression is false ( i.e. not secured)
             // the field is considered to be obfuscate or removed in the map method.
             if (dataSecurityHandler != null && !securityExpressionInterpreter.interpret(dataSecurityHandler.securityExpression(anno))) {
-                securityObject = anno;
+                securedObject = anno;
                 return true;
             }
         }
         return false;
     }
 
-
-    private boolean handleOther(AnnotatedElement candidate) {
-        // TODO : 1) En clef  de la map il ya une ConventionSpecification
-        //        2) parcourir l'ensemble des clefs du type ConventionSpecification. confronter la specification au candidate
-        //           si elle est vérifiée alors le handler est le bon.
-
-//		handler = securityHandlers.get(candidate);
-//		if ( handler != null  && ! securityExpressionInterpreter.interpret( handler.securityExpression(  candidate )) ) {
-//			securityObject = candidate;
-//			return true;
-//		}
-
-        return false;
-    }
-
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public Void map(Node node) {
-        if (securityObject == null) {
-            throw SeedException.createNew(SecurityErrorCode.UNEXPECTED_ERROR);
-        }
+        checkNotNull(securedObject, "Secured object cannot be null");
 
-        Class<? extends DataObfuscationHandler<?>> securityObfuscationHandler = dataSecurityHandler.securityObfuscationHandler(securityObject);
-
+        Class<? extends DataObfuscationHandler<?>> securityObfuscationHandler = dataSecurityHandler.securityObfuscationHandler(securedObject);
         Object value;
         Field f = (Field) node.annotatedElement();
         if (securityObfuscationHandler != null) {

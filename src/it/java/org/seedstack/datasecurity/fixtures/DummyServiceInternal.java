@@ -7,8 +7,7 @@
  */
 package org.seedstack.datasecurity.fixtures;
 
-
-import org.seedstack.seed.security.data.Secured;
+import org.seedstack.datasecurity.Secured;
 
 public class DummyServiceInternal implements DummyService {
 

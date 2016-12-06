@@ -11,9 +11,9 @@ import io.nuun.kernel.api.plugin.InitState;
 import io.nuun.kernel.api.plugin.context.InitContext;
 import io.nuun.kernel.api.plugin.request.BindingRequest;
 import io.nuun.kernel.api.plugin.request.ClasspathScanRequest;
+import org.seedstack.datasecurity.DataObfuscationHandler;
+import org.seedstack.datasecurity.spi.DataSecurityHandler;
 import org.seedstack.seed.core.internal.AbstractSeedPlugin;
-import org.seedstack.seed.security.spi.data.DataObfuscationHandler;
-import org.seedstack.seed.security.spi.data.DataSecurityHandler;
 
 import java.util.Collection;
 import java.util.HashSet;

@@ -7,17 +7,17 @@
  */
 package org.seedstack.datasecurity.internal;
 
-import org.seedstack.seed.security.data.Secured;
+import org.seedstack.datasecurity.Secured;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-class SecuredReturnValueFinder extends AbstractSecuredFinder implements Function<Method, Optional<Secured>>, Predicate<Method> {
-    static SecuredReturnValueFinder INSTANCE = new SecuredReturnValueFinder();
+class SecuredReturnValueResolver extends AbstractSecuredResolver implements Function<Method, Optional<Secured>>, Predicate<Method> {
+    static SecuredReturnValueResolver INSTANCE = new SecuredReturnValueResolver();
 
-    private SecuredReturnValueFinder() {
+    private SecuredReturnValueResolver() {
         // no external instantiation allowed
     }
 

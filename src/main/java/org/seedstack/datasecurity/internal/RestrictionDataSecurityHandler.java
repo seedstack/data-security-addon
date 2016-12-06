@@ -8,21 +8,20 @@
 package org.seedstack.datasecurity.internal;
 
 
-import org.seedstack.seed.security.data.Restriction;
-import org.seedstack.seed.security.spi.data.DataObfuscationHandler;
-import org.seedstack.seed.security.spi.data.DataSecurityHandler;
-
+import org.seedstack.datasecurity.DataObfuscationHandler;
+import org.seedstack.datasecurity.Restriction;
+import org.seedstack.datasecurity.spi.DataSecurityHandler;
 
 class RestrictionDataSecurityHandler implements DataSecurityHandler<Restriction> {
 
-	@Override
-	public Object securityExpression(Restriction candidate) {
-		return candidate.value();
-	}
+    @Override
+    public Object securityExpression(Restriction candidate) {
+        return candidate.value();
+    }
 
-	@Override
-	public Class<? extends DataObfuscationHandler<?>> securityObfuscationHandler(Restriction candidate) {
-		return candidate.obfuscation();
-	}
+    @Override
+    public Class<? extends DataObfuscationHandler<?>> securityObfuscationHandler(Restriction candidate) {
+        return candidate.obfuscation();
+    }
 
 }

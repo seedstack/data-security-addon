@@ -13,9 +13,9 @@ import com.google.inject.matcher.Matcher;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.multibindings.MapBinder;
 import net.jodah.typetools.TypeResolver;
+import org.seedstack.datasecurity.DataSecurityService;
+import org.seedstack.datasecurity.spi.DataSecurityHandler;
 import org.seedstack.seed.core.internal.utils.MethodMatcherBuilder;
-import org.seedstack.seed.security.data.DataSecurityService;
-import org.seedstack.seed.security.spi.data.DataSecurityHandler;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -53,6 +53,6 @@ class DataSecurityModule extends AbstractModule {
     }
 
     private Matcher<? super Method> securedMethods() {
-        return new MethodMatcherBuilder(SecuredReturnValueFinder.INSTANCE.or(SecuredParameterFinder.INSTANCE)).build();
+        return new MethodMatcherBuilder(SecuredReturnValueResolver.INSTANCE.or(SecuredParameterResolver.INSTANCE)).build();
     }
 }

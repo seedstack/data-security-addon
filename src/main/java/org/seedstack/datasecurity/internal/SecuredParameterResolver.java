@@ -7,17 +7,17 @@
  */
 package org.seedstack.datasecurity.internal;
 
-import org.seedstack.seed.security.data.Secured;
+import org.seedstack.datasecurity.Secured;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.function.Function;
 
-class SecuredParameterFinder extends AbstractSecuredFinder implements Function<Method, Secured[]> {
-    static SecuredParameterFinder INSTANCE = new SecuredParameterFinder();
+class SecuredParameterResolver extends AbstractSecuredResolver implements Function<Method, Secured[]> {
+    static SecuredParameterResolver INSTANCE = new SecuredParameterResolver();
 
-    private SecuredParameterFinder() {
+    private SecuredParameterResolver() {
         // no external instantiation allowed
     }
 

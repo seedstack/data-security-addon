@@ -9,8 +9,8 @@ package org.seedstack.datasecurity.internal;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.seedstack.seed.security.data.DataSecurityService;
-import org.seedstack.seed.security.data.Secured;
+import org.seedstack.datasecurity.DataSecurityService;
+import org.seedstack.datasecurity.Secured;
 
 import javax.inject.Inject;
 import java.lang.reflect.Method;
@@ -25,8 +25,8 @@ class DataSecurityInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         Method method = invocation.getMethod();
-        boolean secureReturnValue = SecuredReturnValueFinder.INSTANCE.test(method);
-        Secured[] parametersToBeSecured = SecuredParameterFinder.INSTANCE.apply(method);
+        boolean secureReturnValue = SecuredReturnValueResolver.INSTANCE.test(method);
+        Secured[] parametersToBeSecured = SecuredParameterResolver.INSTANCE.apply(method);
 
         Object[] arguments = invocation.getArguments();
         Object returnValue = invocation.proceed();

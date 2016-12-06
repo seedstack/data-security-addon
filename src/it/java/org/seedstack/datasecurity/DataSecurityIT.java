@@ -18,7 +18,6 @@ import org.seedstack.datasecurity.fixtures.MyUnsecuredPojo;
 import org.seedstack.datasecurity.fixtures.SuperSecretPojo;
 import org.seedstack.seed.it.SeedITRunner;
 import org.seedstack.seed.security.WithUser;
-import org.seedstack.seed.security.data.DataSecurityService;
 
 import javax.inject.Inject;
 
@@ -28,10 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SeedITRunner.class)
 public class DataSecurityIT {
     @Inject
-    DataSecurityService dataSecurityService;
-
+    private DataSecurityService dataSecurityService;
     @Inject
-    DummyService dummyService;
+    private DummyService dummyService;
 
     @Test
     @WithUser(id = "Anakin", password = "imsodark")

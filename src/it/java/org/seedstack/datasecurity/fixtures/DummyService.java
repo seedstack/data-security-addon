@@ -7,13 +7,11 @@
  */
 package org.seedstack.datasecurity.fixtures;
 
-import org.seedstack.seed.security.data.Secured;
+import org.seedstack.datasecurity.Secured;
 
 public interface DummyService {
-
     @Secured
     Dummy service1(@Secured Dummy d1, Dummy d2, Dummy d3);
 
     Dummy service2(Dummy d4);
-
 }

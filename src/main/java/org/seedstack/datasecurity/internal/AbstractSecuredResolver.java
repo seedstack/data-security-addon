@@ -7,15 +7,15 @@
  */
 package org.seedstack.datasecurity.internal;
 
-import org.seedstack.shed.predicate.ExecutablePredicates;
 import org.seedstack.shed.reflect.Classes;
+import org.seedstack.shed.reflect.ExecutablePredicates;
 
 import java.lang.reflect.Method;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public abstract class AbstractSecuredFinder implements Predicate<Method> {
-    protected Stream<Method> findEquivalentMethods(Method method) {
+abstract class AbstractSecuredResolver implements Predicate<Method> {
+    Stream<Method> findEquivalentMethods(Method method) {
         return Classes.from(method.getDeclaringClass())
                 .traversingInterfaces()
                 .traversingSuperclasses()

@@ -5,16 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package org.seedstack.datasecurity.fixtures;
-
-
-import org.seedstack.datasecurity.DataObfuscationHandler;
-
-public class DummyObfuscation implements DataObfuscationHandler<String> {
-
-    @Override
-    public String obfuscate(String data) {
-        return "obfuscated!!";
-    }
-
-}
+/**
+ * Provides classes for applying security on data.
+ */
+package org.seedstack.datasecurity;

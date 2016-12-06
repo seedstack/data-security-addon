@@ -9,6 +9,6 @@ package org.seedstack.datasecurity.internal;
 
 import org.seedstack.shed.exception.ErrorCode;
 
-public enum DataSecurityErrorCode implements ErrorCode {
+enum DataSecurityErrorCode implements ErrorCode {
     FIELD_ACCESS_ERROR
 }
