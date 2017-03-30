@@ -4,9 +4,7 @@ repo: "https://github.com/seedstack/data-security-addon"
 author: Epo JEMBA
 description: "Data obfuscation according to application security policy." 
 tags:
-    - "data"
-    - "security"
-    - "obfuscation"
+    - security
 zones:
     - Addons
 menu:
@@ -15,9 +13,11 @@ menu:
 ---
 
 SeedStack data security add-on provides data obfuscation for any POJO according to the application security policy. The 
-goal is to protect the data exposed by an application. You define security constraints on class attributes and the 
-obfuscation that is used when those constraints are violated. For instance, an account number like `79927391338710` can be 
-transformed into `799273******10`.
+goal is to protect the data exposed by an application. 
+<!--more-->
+
+You define security constraints on class attributes and the obfuscation that is used when those constraints are violated. 
+For instance, an account number like `79927391338710` can be transformed into `799273******10`.
 
 # Dependency
 
