@@ -85,7 +85,7 @@ public class SomeClass {
 ```
 
 Every method annotated with `@Secured` or with the annotation applied to at least one of its parameters will be intercepted 
-and the relevant objects will be secured. Note that the [usual interception limitations]({{< ref "docs/seed/dependency-injection.md#method-interception" >}}) apply.
+and the relevant objects will be secured. Note that the [usual interception limitations]({{< ref "docs/basics/dependency-injection.md#method-interception" >}}) apply.
 
 {{% callout warning %}}
 Please note that the data security interceptor will inspect the whole object graph starting from the secured object, so 
