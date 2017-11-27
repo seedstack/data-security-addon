@@ -1,5 +1,6 @@
 ---
 title: "Data security"
+addon: "Data security"
 repo: "https://github.com/seedstack/data-security-addon"
 author: Epo JEMBA
 description: "Data obfuscation according to application security policy." 
@@ -7,9 +8,7 @@ tags:
     - security
 zones:
     - Addons
-menu:
-    AddonDataSecurity:
-        weight: 10
+noMenu: true    
 ---
 
 SeedStack data security add-on provides data obfuscation for any POJO according to the application security policy. The 
@@ -19,13 +18,13 @@ goal is to protect the data exposed by an application.
 You define security constraints on class attributes and the obfuscation that is used when those constraints are violated. 
 For instance, an account number like `79927391338710` can be transformed into `799273******10`.
 
-# Dependency
+## Dependency
 
 {{< dependency g="org.seedstack.addons.datasecurity" a="data-security" >}}
 
-# Usage
+## Usage
 
-## @Restriction annotation
+### @Restriction annotation
 
 The {{< java "org.seedstack.datasecurity.Restriction" "@" >}} annotation can be applied on any class attribute, marking
 it as a candidate for obfuscation if the security expression evaluates to false:
@@ -43,7 +42,7 @@ It takes the following parameters:
 * `obfuscation` is the class of the [obfuscation handler](#obfuscation) to use if the expression is evaluated to false. It
 defaults to {{< java "org.seedstack.datasecurity.NullifyObfuscationHandler" >}} which will set the field to `null`.
 
-## Data security service
+### Data security service
 
 The security on data can be applied by using the `DataSecurityService` as follows:
 
@@ -63,7 +62,7 @@ public class SomeClass {
 This service will go recursively through the object fields and look for restrictions. Each restriction that evaluates to f
 alse against the current Subject will trigger the obfuscation of its associated field.
 
-## @Secured annotation
+### @Secured annotation
 
 You can add a `@Secured` annotation on any method parameter to automatically apply data security on it. You can also 
 apply the `@Secured` annotation directly on the method to apply data security on the return value:
@@ -92,7 +91,7 @@ Please note that the data security interceptor will inspect the whole object gra
 you may encounter some performance penalty depending on its size. This should not be a problem for typical use.
 {{% /callout %}}
 
-# Security expressions
+## Security expressions
 
 Security expressions are strings that respect the [Unified Expression Language (UEL)](https://uel.java.net/) syntax. The 
 following methods are available:
@@ -115,7 +114,7 @@ More resources on EL:
 * [Oracle tutorial](http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html)
 * [Unified Expression Language](https://uel.java.net/)
 
-# Obfuscation
+## Obfuscation
 
 You can define obfuscations by implementing the {{< java "org.seedstack.datasecurity.DataObfuscationHandler" >}} interface:
 
@@ -142,7 +141,7 @@ public class MySecuredPojo {
 }
 ```    
 
-# Custom restriction annotations
+## Custom restriction annotations
 
 Custom restriction annotations can be defined and registered with data security by defining a `DataSecurityHandler`. 
 Start with defining a custom annotation:
